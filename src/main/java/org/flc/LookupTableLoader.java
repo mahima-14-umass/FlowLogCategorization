@@ -17,19 +17,33 @@ class LookupTableLoader {
         }
 
         for (String line : lines) {
-            // ignore empty lines if any
             if (!line.trim().isEmpty()) {
                 String[] parts = line.split(",");
-
-                // Todo - commenting out the condition assuming that the file
-                //  structure is guaranteed to be fixed - more efficient
-
-                //  if (parts.length == 3) {
-                String key = (parts[0] + "," + parts[1]).toLowerCase();
-                lookupTable.put(key, parts[2]);
-                // }
+                if (parts.length == 3) {
+                    String key = (parts[0] + "," + parts[1]).toLowerCase();
+                    lookupTable.put(key, parts[2]);
+                }
             }
         }
         return lookupTable;
+    }
+
+    public static Map<String, String> loadProtocolTable(String filename) throws IOException {
+        Map<String, String> protocolTable = new HashMap<>();
+        List<String> lines = Files.readAllLines(Paths.get(filename));
+
+        if (!lines.isEmpty()) {
+            lines.remove(0); // Remove header line
+        }
+
+        for (String line : lines) {
+            if (!line.trim().isEmpty()) {
+                String[] parts = line.split(",");
+                if (parts.length >= 2) {
+                    protocolTable.put(parts[0].trim(), parts[1].trim().toLowerCase());
+                }
+            }
+        }
+        return protocolTable;
     }
 }

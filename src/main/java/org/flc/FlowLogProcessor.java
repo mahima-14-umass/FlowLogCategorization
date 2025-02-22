@@ -4,15 +4,15 @@ import java.util.AbstractMap;
 import java.util.Map;
 
 class FlowLogProcessor {
-    public static Map.Entry<String, String> processLog(String log, Map<String, String> lookupTable) {
+    public static Map.Entry<String, String> processLog(String log, Map<String, String> lookupTable, Map<String, String> protocolTable) {
         String[] parts = log.split(" ");
-        if (parts.length < 7) return new AbstractMap.SimpleEntry<>("Untagged", "1");
+//        if (parts.length < 14) return new AbstractMap.SimpleEntry<>("Untagged", "0,unknown");
 
-        String port = parts[5];
-        String protocol = parts[6];
-        String key = (port + "," + protocol).toLowerCase();
+        String protocol = protocolTable.getOrDefault(parts[7], "unknown");
+        String dstPort = parts[6];
+        String key = (dstPort + "," + protocol).toLowerCase();
 
         String tag = lookupTable.getOrDefault(key, "Untagged");
-        return new AbstractMap.SimpleEntry<>(tag, "1");
+        return new AbstractMap.SimpleEntry<>(tag, dstPort + "," + protocol);
     }
 }
