@@ -8,12 +8,13 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.flc.Constants.BASE_PATH_TEST;
 
 public class FileUtilTest {
 
     @Test
     void testFileUtil() throws IOException {
-        String testFile = "test_output.csv";
+        String testFile = BASE_PATH_TEST + "test_output.csv";
         List<String> testData = Arrays.asList("Tag,Count", "sv_P1,2", "email,1");
         FileUtil.writeOutput(testFile, testData);
 

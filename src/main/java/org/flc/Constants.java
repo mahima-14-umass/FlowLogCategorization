@@ -2,6 +2,7 @@ package org.flc;
 
 public class Constants {
     public static final String BASE_PATH = "src/main/resources/";
+    public static final String BASE_PATH_TEST = "src/test/resources/";
     public static final String LOOKUP_FILE = BASE_PATH + "lookup.csv";
 
     public static final String PROTOCOL_FILE = BASE_PATH + "protocol-numbers-1.csv";
