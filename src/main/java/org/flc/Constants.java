@@ -1,5 +1,8 @@
 package org.flc;
 
+/**
+ * This class defines constants
+ */
 public class Constants {
     public static final String BASE_PATH = "src/main/resources/";
     public static final String BASE_PATH_TEST = "src/test/resources/";
