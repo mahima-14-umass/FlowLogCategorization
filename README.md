@@ -9,6 +9,7 @@ Flow Log Tagger is a scalable and efficient Java application that processes flow
 - Efficiently parses and processes large flow log files (up to **1GB**)
 - Uses a **lookup table** to map flow logs to appropriate tags
 - Supports **multi-threaded processing** for high performance
+- Providing **logging** using **SLF4J** 
 - Provides output with **aggregated tag counts**
 - Includes **unit testing** with high test coverage using **JaCoCo**
 - Supports **load testing**
@@ -84,6 +85,8 @@ JaCoCo is used to measure test coverage. To generate a coverage report:
 mvn jacoco:report
 ```
 This will generate a coverage report in target/site/jacoco/index.html.
+
+![img.png](img.png)
 
 ## Load Testing
 
