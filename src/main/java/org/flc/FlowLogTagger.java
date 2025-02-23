@@ -1,5 +1,8 @@
 package org.flc;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -20,6 +23,7 @@ import static org.flc.Constants.*;
 public class FlowLogTagger {
     // Defines the number of parallel threads based on the system's available CPU cores.
     private static final int THREAD_POOL_SIZE = Runtime.getRuntime().availableProcessors();
+    private static final Logger logger = LoggerFactory.getLogger(FlowLogTagger.class);
 
     /**
      * The entry point of the program. It loads necessary files, processes logs in parallel,
@@ -29,31 +33,35 @@ public class FlowLogTagger {
      */
     public static void main(String[] args) {
         try {
-            // Load lookup and protocol tables
+            long startTime = System.currentTimeMillis();
+            logger.info("Loading lookup and protocol tables");
             Map<String, String> lookupTable = LookupTableLoader.loadLookupTable(LOOKUP_FILE);
             Map<String, String> protocolTable = LookupTableLoader.loadProtocolTable(PROTOCOL_FILE);
 
-            // Read flow logs from the file
+            logger.info("Reading flow logs from the file");
             List<String> flowLogs = Files.readAllLines(Paths.get(FLOW_LOG_FILE));
 
             TagCounter tagCounter = new TagCounter();
             try (ExecutorService executorService = Executors.newFixedThreadPool(THREAD_POOL_SIZE)) {
                 List<Future<Map.Entry<String, String>>> futures = new ArrayList<>();
 
-                // Process each log entry concurrently
+                logger.info("Processing each log entry concurrently");
                 for (String log : flowLogs) {
                     futures.add(executorService.submit(() -> FlowLogProcessor.processLog(log, lookupTable, protocolTable)));
                 }
 
-                // Collect results from future tasks
+                logger.info("Collecting results from future tasks");
                 for (Future<Map.Entry<String, String>> future : futures) {
                     tagCounter.addEntry(future.get());
                 }
                 executorService.shutdown();
             }
 
-            // Write results to the output file
+            logger.info("Writing results to the output file");
             FileUtil.writeOutput(OUTPUT_FILE, tagCounter.getResults());
+            long endTime = System.currentTimeMillis();
+            long totalExecutionTime = endTime - startTime;
+            logger.info("Total Execution Time: " + totalExecutionTime + " ms");
         } catch (Exception e) {
             // Print stack trace for debugging in case of errors
             e.printStackTrace();
