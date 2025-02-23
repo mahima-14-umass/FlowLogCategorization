@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-class LookupTableLoader {
+public class LookupTableLoader {
     public static Map<String, String> loadLookupTable(String filename) throws IOException {
         Map<String, String> lookupTable = new HashMap<>();
         List<String> lines = Files.readAllLines(Paths.get(filename));

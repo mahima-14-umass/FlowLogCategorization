@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-class TagCounter {
+public class TagCounter {
     private final Map<String, Integer> tagCounts = new HashMap<>();
     private final Map<String, Integer> portProtocolCounts = new HashMap<>();
 
