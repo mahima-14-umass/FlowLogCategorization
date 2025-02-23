@@ -90,7 +90,12 @@ This will generate a coverage report in target/site/jacoco/index.html.
 
 ## Load Testing
 
-The class FlowLogTaggerLoadTest.java performs the load testing by generation a sample flowlogs_loadtesting.txt of 1GB and processing it. The output is as follow:
+The class FlowLogTaggerLoadTest.java performs the load testing by generation a sample flowlogs_loadtesting.txt of 1GB and processing it. 
+Run the class using the following command:
+```shell
+mvn test -Dtest=FlowLogTaggerLoadTest
+```
+The output is as follow:
 ```shell
 Resource Usage :: 
 File Size: 1.0 GB
