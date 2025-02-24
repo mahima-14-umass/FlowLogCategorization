@@ -95,7 +95,7 @@ This will generate a coverage report in target/site/jacoco/index.html.
 
 ## Load Testing
 
-The class FlowLogTaggerLoadTest.java performs the load testing by generation a sample flowlogs_loadtesting.txt of 1GB and processing it. 
+The class FlowLogTaggerLoadTest.java performs the load testing by generation a sample flowlogs_loadtesting.txt of 10MB and Lookup table having 10000 entries. 
 Run the class using the following command:
 ```shell
 mvn test -Dtest=FlowLogTaggerLoadTest
@@ -103,9 +103,9 @@ mvn test -Dtest=FlowLogTaggerLoadTest
 The output is as follow:
 ```shell
 Resource Usage :: 
-File Size: 1.0 GB
-Total Execution Time: 118 ms
-Memory Used: 2720 KB
+File Size: 10.0 MB
+Total Execution Time: 0.984 sec
+Memory Used: 83493 KB
 ```
 
 ## Expected Output
@@ -143,3 +143,6 @@ Port,Protocol,Count
 
 ## Conclusion
 Flow Log Tagger is a high-performance log processing tool built for scalability and efficiency. It provides clear tagging, multi-threaded execution, and robust testing support.
+
+## Reference
+flow logs: https://docs.aws.amazon.com/vpc/latest/userguide/flow-log-records.html

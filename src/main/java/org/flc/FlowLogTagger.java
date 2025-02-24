@@ -3,8 +3,6 @@ package org.flc;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -32,14 +30,25 @@ public class FlowLogTagger {
      * @param args Command-line arguments (not used)
      */
     public static void main(String[] args) {
+        categorizeLogs(LOOKUP_FILE, FLOW_LOG_FILE);
+    }
+
+    /**
+     * The entry point of the program. It loads necessary files, processes logs in parallel,
+     * and writes the results to an output file.
+     *
+     * @param lookupFile Lookup table as the csv file path
+     * @param flowLogFile flow log file path
+     */
+    public static void categorizeLogs(String lookupFile, String flowLogFile) {
         try {
             long startTime = System.currentTimeMillis();
             logger.info("Loading lookup and protocol tables");
-            Map<String, String> lookupTable = LookupTableLoader.loadLookupTable(LOOKUP_FILE);
+            Map<String, String> lookupTable = LookupTableLoader.loadLookupTable(lookupFile);
             Map<String, String> protocolTable = LookupTableLoader.loadProtocolTable(PROTOCOL_FILE);
 
             logger.info("Reading flow logs from the file");
-            List<String> flowLogs = Files.readAllLines(Paths.get(FLOW_LOG_FILE));
+            List<String> flowLogs = FileUtil.readFile(flowLogFile);
 
             TagCounter tagCounter = new TagCounter();
             try (ExecutorService executorService = Executors.newFixedThreadPool(THREAD_POOL_SIZE)) {
