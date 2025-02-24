@@ -31,10 +31,8 @@ public class LookupTableLoader {
         for (String line : lines) {
             if (!line.trim().isEmpty()) {
                 String[] parts = line.split(",");
-                if (parts.length == 3) {
-                    String key = (parts[0] + "," + parts[1]).toLowerCase();
-                    lookupTable.put(key, parts[2]);
-                }
+                String key = (parts[0] + "," + parts[1]).toLowerCase();
+                lookupTable.put(key, parts[2]);
             }
         }
         return lookupTable;

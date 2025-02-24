@@ -4,6 +4,11 @@
 
 Flow Log Tagger is a scalable and efficient Java application that processes flow log data, assigns tags based on a lookup table, and aggregates tagged data. This system is designed to handle large-scale log files efficiently using multi-threading.
 
+## Assumptions Made
+
+- Log version will always be 2.
+- Lookup table structure will not change
+
 ## Features
 
 - Efficiently parses and processes large flow log files (up to **1GB**)
